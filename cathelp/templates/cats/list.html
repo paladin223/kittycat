@@ -1,0 +1,13 @@
+{% load static %}
+
+{% if cats %}
+    
+    {% for cat in cats %}
+    <ul>
+        <li>{{ cat.name }} - Возраст: {{ cat.age }}, Вес: {{ cat.weight }}</li>
+        <li><img src="{{ cat.photo_detail.url }}" width="100px"></li>
+    </ul>
+    {% endfor %}
+{% else %}
+    <p>На данный момент нет ни одного кота.</p>
+{% endif %}
