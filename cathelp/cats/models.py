@@ -9,7 +9,7 @@ class Cat(models.Model):
     @property
     def photo_detail(self):
         return sorl.thumbnail.get_thumbnail(
-            self.photo, "150x150", crop="center"
+            self.photo, "400x400", crop="center"
         )
 
     name = models.CharField(max_length=100, verbose_name="Имя кота")
