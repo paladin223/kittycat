@@ -1,0 +1,17 @@
+{% extends "index.html" %}
+
+{% load static %}
+
+{% block main %}
+  <form class="add_cat" action="{% url "cats:add" %}" method="post">
+    {% csrf_token %}
+    <div class="form-error">{{ form.non_field_errors }}</div>
+    {% for elem in form %}
+      <div class="input-add-cat"><label class="input-add-cat-label" for={{ elem.id_for_label}}>{{elem.label}}: </label>{{elem}}</div>
+      {% if elem.errors and elem.value %}
+        <div class="form-error"> {{ elem.errors }}</div>
+      {% endif %}
+    {% endfor %}
+    <button class="add-cat-submit"type="submit">Добавить</button>
+  </form>
+{% endblock %}

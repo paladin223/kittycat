@@ -5,9 +5,9 @@
     <ul class="nav_center">
         <li><a href="{% url "homepage:home" %}">Главная</a></li>
         <li><a href="{% url "cats:cats_list" %}">Каталог</a></li>
-        {% if user.is_authenticated %}
-        <li>Добавить кота</li>
-        {% endif %}
+        {% comment %} {% if user.is_authenticated %} {% endcomment %}
+        <li><a href="{% url "cats:add" %}">Добавить кота</li>
+        {% comment %} {% endif %} {% endcomment %}
         <li><a href="{% url "about:about" %}">О проекте</a></li>
     </ul>
   <div class="nav_right">

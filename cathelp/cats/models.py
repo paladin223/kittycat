@@ -5,8 +5,9 @@ import sorl.thumbnail
 
 class Color(models.Model):
     name = models.CharField(max_length=100, verbose_name="Цвет")
-    slug = models.SlugField(max_length=255, unique=True,
-                            db_index=True, verbose_name="URL")
+    slug = models.SlugField(
+        max_length=255, unique=True, db_index=True, verbose_name="URL"
+    )
 
     def __str__(self):
         return self.name
@@ -22,8 +23,9 @@ class Cat(models.Model):
         return f"photos/{instance.slug}/{instance.slug}.png"
 
     name = models.CharField(max_length=100, verbose_name="Имя кота")
-    slug = models.SlugField(max_length=255, unique=True,
-                            db_index=True, verbose_name="URL")
+    slug = models.SlugField(
+        max_length=255, unique=True, db_index=True, verbose_name="URL"
+    )
     age = models.IntegerField(verbose_name="Возраст кота")
     weight = models.FloatField(verbose_name="Вес кота")
     color = models.ForeignKey(
@@ -35,20 +37,22 @@ class Cat(models.Model):
 
     @property
     def photo_detail(self):
-        return sorl.thumbnail.get_thumbnail(
-            self.photo, "800x800", crop="center"
-        )
+        if self.photo:
+            return sorl.thumbnail.get_thumbnail(
+                self.photo, "800x800", crop="center"
+            )
 
     @property
     def photo_info(self):
-        return sorl.thumbnail.get_thumbnail(
-            self.photo, "800x800", crop="center"
-        )
+        if self.photo:
+            return sorl.thumbnail.get_thumbnail(
+                self.photo, "800x800", crop="center"
+            )
 
-    # lesson 8 13 min
     def get_absolute_url(self):
-        return django.urls.reverse("cats:one_cat",
-                                   kwargs={"catslug": self.slug})
+        return django.urls.reverse(
+            "cats:one_cat", kwargs={"catslug": self.slug}
+        )
 
     def __str__(self):
         return self.name
