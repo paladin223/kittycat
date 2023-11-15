@@ -1,0 +1,17 @@
+{% extends "index.html" %}
+
+{% load static %}
+
+{% block main %}
+<div class="cat-details">
+  <div class="cat-name">{{ cat.name }}</div>
+  <div class="cat-photo"><img src="{{ cat.photo_info.url }}" alt="{{ cat.name }}" width="300px"></div>
+  <div class="cat-info">
+    <div class="info-item">Возраст: {{ cat.age }}</div>
+    <div class="info-item">Вес: {{ cat.weight }}</div>
+    {% if cat.color %}
+      <div class="info-item">Цвет: {{ cat.color }}</div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

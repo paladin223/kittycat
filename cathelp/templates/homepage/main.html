@@ -1,0 +1,12 @@
+{% extends "index.html" %}
+
+{% block main %}
+  {% if user.is_authenticated %}
+    {% include "includes/navfooter.html" %}
+    {% load catTags %}
+    {% show_cats %}
+    {% comment %} {% show_cats "important includes!!!!"%} {% endcomment %}
+  {% else %}
+    <div class="notauth"> Авторизируйтесь на сайте!</div>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,21 @@
+{% load static %}
+
+<nav>
+  <div class="logo"><img src="{% static 'images/cat-logo.png' %}" width="60px"></div>
+    <ul class="nav_center">
+        <li><a href="{% url "homepage:home" %}">Главная</a></li>
+        <li><a href="{% url "cats:cats_list" %}">Каталог</a></li>
+        {% if user.is_authenticated %}
+        <li>Добавить кота</li>
+        {% endif %}
+        <li><a href="{% url "about:about" %}">О проекте</a></li>
+    </ul>
+  <div class="nav_right">
+  {% if user.is_authenticated %}
+     <div>User: {{ user.get_username }}</div>
+     <a href="{% url 'logout'%}?next={{request.path}}">Logout</a>
+   {% else %}
+     <a href="{% url 'login'%}?next={{request.path}}">Login</a>
+   {% endif %}
+  </div>
+</nav>

@@ -1,9 +1,11 @@
 from django.shortcuts import render
 
-from cats.models import Cat
+# from cats.models import Cat
 
 
 def homepage(request):
-    cats = Cat.objects.all()
-    context = {"cats": cats}
-    return render(request, "homepage.html", context)
+    context = {}
+    num_visits = request.session.get("num_visits", 0)
+    request.session["num_visits"] = num_visits + 1
+    print(num_visits)
+    return render(request, "homepage/main.html", context)

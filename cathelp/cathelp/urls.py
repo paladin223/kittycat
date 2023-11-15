@@ -6,11 +6,11 @@ from django.urls import path
 
 urlpatterns = [
     path("", include("homepage.urls"), name="homepage"),
-    path("cats/", include("cats.urls"), name="cats"),
-    # path('accounts/', include('django.contrib.auth.urls')),
     path("admin/", admin.site.urls),
+    path("about/", include("about.urls"), name="about"),
+    path("accounts/", include("django.contrib.auth.urls")),
+    path("cats/", include("cats.urls"), name="cats"),
 ]
-
 
 if settings.DEBUG:
     import debug_toolbar

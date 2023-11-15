@@ -1,13 +1,25 @@
 {% load static %}
 
 {% if cats %}
-    
+  <div class="grid-container">
     {% for cat in cats %}
-    <ul>
-        <li>{{ cat.name }} - Возраст: {{ cat.age }}, Вес: {{ cat.weight }}</li>
-        <li><img src="{{ cat.photo_detail.url }}" width="100px"></li>
-    </ul>
+    <div class="grid-item">
+      <div class="item-name">{{ cat.name }}</div>
+      <div class="item-body"><img src="{{ cat.photo_detail.url }}" width="180px"></div>
+      <div class="item-info">
+        <div class="info-item"> Возраст{{ cat.age }}</div>
+        <div class="info-item">Вес: {{ cat.weight }}</div>
+        {% if cat.color %}
+          <div class="info-item">Цвет: {{ cat.color }}</div>
+        {% endif %}
+      </div>
+      <div class="item_buttons">
+        <a class="LikeCat">Нравится💕</a>
+        <a href="{{ cat.get_absolute_url }}" class="CheckCat">Посмотреть</a>
+      </div>
+    </div>
     {% endfor %}
+  </div>
 {% else %}
-    <p>На данный момент нет ни одного кота.</p>
+  <p>На данный момент нет ни одного кота.</p>
 {% endif %}
