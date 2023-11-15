@@ -38,7 +38,7 @@ class Cat(models.Model):
         return sorl.thumbnail.get_thumbnail(
             self.photo, "800x800", crop="center"
         )
-    
+
     @property
     def photo_info(self):
         return sorl.thumbnail.get_thumbnail(
