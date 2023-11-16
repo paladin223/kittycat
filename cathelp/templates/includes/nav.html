@@ -1,7 +1,7 @@
 {% load static %}
 
 <nav>
-  <div class="logo"><img src="{% static 'images/cat-logo.png' %}" width="60px"></div>
+  <a class="logo" href="{% url "homepage:home" %}"><img src="{% static 'images/cat-logo.png' %}" width="60px"></a>
     <ul class="nav_center">
         <li><a href="{% url "homepage:home" %}">Главная</a></li>
         <li><a href="{% url "cats:cats_list" %}">Каталог</a></li>

@@ -262,7 +262,7 @@ main{
 
 .input-add-cat-label {
   display: inline-block;
-  width: 150px;
+  width: 140px;
   font-weight: bold;
 }
 
@@ -273,6 +273,14 @@ main{
   border-radius: 10px;
   border: 1px solid #505050;
   width: 220px;
+}
+
+.form-error {
+  max-width: 360px;
+  text-align: center;
+  color: red;
+  font-weight: bolder;
+  margin-bottom: 5px;
 }
 
 .add-cat-submit {

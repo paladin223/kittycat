@@ -5,7 +5,7 @@ from . import views
 app_name = "cats"
 
 urlpatterns = [
-    path("", views.list_items, name="cats_list"),
-    path("<slug:catslug>/", views.one_cat, name="one_cat"),
-    path("add", views.add_cat, name="add")
+    path("", views.CatsList.as_view(), name="cats_list"),
+    path("<slug:catslug>/", views.CatDetail.as_view(), name="one_cat"),
+    path("add", views.CatCreate.as_view(), name="add"),
 ]

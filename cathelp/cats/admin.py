@@ -14,8 +14,15 @@ class CatAdmin(admin.ModelAdmin):
     photo_admin.short_description = "Фоткарточка"
 
     readonly_fields = ("photo_admin",)
-
-    list_display = ("name", "slug", "age", "weight", "photo_admin")
+    list_display = (
+        "name",
+        "slug",
+        "age",
+        "weight",
+        "photo_admin",
+        "is_published",
+    )
+    list_editable = ("is_published",)
     prepopulated_fields = {"slug": ("name",)}
 
 
@@ -23,13 +30,6 @@ admin.site.register(Cat, CatAdmin)
 
 
 class ColorAdmin(admin.ModelAdmin):
-    def photo_admin(self, obj):
-        if obj.photo:
-            return mark_safe(f"<img src='{obj.photo.url}' width=100>")
-        return None
-
-    photo_admin.short_description = "Фоткарточка"
-
     list_display = ("name", "slug")
     prepopulated_fields = {"slug": ("name",)}
 

@@ -1,11 +1,15 @@
-from django.shortcuts import render
-
-# from cats.models import Cat
+from django.views.generic import ListView
 
 
-def homepage(request):
-    context = {}
-    num_visits = request.session.get("num_visits", 0)
-    request.session["num_visits"] = num_visits + 1
-    print(num_visits)
-    return render(request, "homepage/main.html", context)
+class Homepage(ListView):
+    template_name = "homepage/homepage.html"
+
+    # dynamic context
+    def get_context_data(self, *, object_list=None, **kwargs):
+        # context = super().get_context_data(**kwargs)
+        # context["name"] = name
+        # return context
+        return super().get_context_data(**kwargs)
+
+    def get_queryset(self):
+        pass
