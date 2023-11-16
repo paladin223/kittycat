@@ -14,7 +14,7 @@ def list_items(request):
 
 
 def one_cat(request, catslug) -> HttpResponse:
-    cat = get_object_or_404(Cat, slug=catslug)
+    cat = get_object_or_404(cats.models.Cat, slug=catslug)
     context = {"cat": cat}
     return render(request, "cats/info.html", context)
 

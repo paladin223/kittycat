@@ -138,4 +138,4 @@ dmypy.json
 .pyre/
 
 # own
-media/cache/*
+cathelp/media/cache/*
