@@ -19,6 +19,6 @@ class AddCat(forms.Form):
         widget=forms.TextInput(attrs={"class": "add-cat-input"}))
     color = forms.ModelChoiceField(
         queryset=cats.models.Color.objects.all(), label="цвет",
-        empty_label="Категоия не выбрана",
+        empty_label="Категория не выбрана",
         widget=forms.Select(attrs={"class": "add-cat-input"})
     )
