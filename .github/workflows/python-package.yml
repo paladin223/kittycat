@@ -5,10 +5,10 @@ name: Python Linting
 
 on:
   push:
-    branches: 
-      - "*"
+    branches:
+      - '*'
   pull_request:
-      - "*"
+      - '*'
 
 jobs:
   build:
