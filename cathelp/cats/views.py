@@ -21,14 +21,11 @@ def one_cat(request, catslug) -> HttpResponse:
 
 def add_cat(request):
     if request.method == "POST":
-        form = cats.forms.AddCat(request.POST)
+        form = cats.forms.AddCat(request.POST, request.FILES)
         if form.is_valid():
             print(form.cleaned_data)
-            try:
-                cats.models.Cat.objects.create(**form.cleaned_data)
-                return redirect("homepage:home")
-            except:
-                form.add_error(None, "Ошибка добавления поста")
+            form.save()
+            return redirect("homepage:home")
     else:
         form = cats.forms.AddCat(request.POST)
     context = {"form": form}
