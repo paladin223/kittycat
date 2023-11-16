@@ -4,8 +4,9 @@
   {% if user.is_authenticated %}
     {% include "includes/navfooter.html" %}
     {% load catTags %}
-    {% show_cats %}
+    {% comment %} {% show_cats %} {% endcomment %}
     {% comment %} {% show_cats "important includes!!!!"%} {% endcomment %}
+    <h1 class="h1_about ">Главная</h1>
   {% else %}
     <div class="notauth"> Авторизируйтесь на сайте!</div>
   {% endif %}

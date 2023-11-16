@@ -1,32 +1,53 @@
 # from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import redirect
 from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+from django.views.generic import DetailView
+from django.views.generic import ListView
+
 import cats.forms
 import cats.models
 
 
-def list_items(request):
-    print(request.GET)
-    print(request.session)
-    context = {}
-    return render(request, "cats/cats.html", context)
+class CatsList(ListView):
+    model = cats.models.Cat
+    template_name = "cats/list.html"
+    context_object_name = "cats"
+
+    # dynamic context
+    def get_context_data(self, *, object_list=None, **kwargs):
+        # context = super().get_context_data(**kwargs)
+        # context["name"] = name
+        # return context
+        return super().get_context_data(**kwargs)
+
+    def get_queryset(self):
+        return cats.models.Cat.objects.filter(
+            is_published=True,
+        ).exclude(photo__exact="")
 
 
-def one_cat(request, catslug) -> HttpResponse:
-    cat = get_object_or_404(cats.models.Cat, slug=catslug)
-    context = {"cat": cat}
-    return render(request, "cats/info.html", context)
+class CatDetail(DetailView):
+    model = cats.models.Cat
+    template_name = "cats/info.html"
+    slug_url_kwarg = "catslug"
+    context_object_name = "cat"
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        # context = super().get_context_data(**kwargs)
+        # context["name"] = name
+        # return context
+        return super().get_context_data(**kwargs)
 
 
-def add_cat(request):
-    if request.method == "POST":
-        form = cats.forms.AddCat(request.POST, request.FILES)
-        if form.is_valid():
-            print(form.cleaned_data)
-            form.save()
-            return redirect("homepage:home")
-    else:
-        form = cats.forms.AddCat(request.POST)
-    context = {"form": form}
-    return render(request, "cats/add_cat.html", context)
+class CatCreate(CreateView):
+    form_class = cats.forms.AddCat
+    template_name = "cats/add.html"
+    success_url = reverse_lazy("homepage:home")
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        return super().form_invalid(form)

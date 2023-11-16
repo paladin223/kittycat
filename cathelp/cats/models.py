@@ -1,6 +1,9 @@
+import django.core.validators
 from django.db import models
 import django.urls
 import sorl.thumbnail
+
+import cats.validator
 
 
 class Color(models.Model):
@@ -19,23 +22,44 @@ class Color(models.Model):
 
 
 class Cat(models.Model):
-    def upload_to_folder(instance, filename):
+    def upload_to_folder(self, instance):
         return f"photos/{instance.slug}/{instance.slug}.png"
 
-    name = models.CharField(max_length=100, verbose_name="Имя кота")
+    name = models.CharField(
+        max_length=100,
+        verbose_name="Имя кота",
+        validators=[cats.validator.NameValidator()],
+    )
     slug = models.SlugField(
         max_length=255, unique=True, db_index=True, verbose_name="URL"
     )
-    age = models.IntegerField(verbose_name="Возраст кота")
-    weight = models.FloatField(verbose_name="Вес кота")
+    age = models.IntegerField(
+        verbose_name="Возраст кота",
+        validators=[
+            django.core.validators.MaxValueValidator(32767),
+            django.core.validators.MinValueValidator(0),
+        ],
+    )
+    weight = models.FloatField(
+        verbose_name="Вес кота",
+        validators=[
+            django.core.validators.MaxValueValidator(32767),
+            django.core.validators.MinValueValidator(0),
+        ],
+    )
     color = models.ForeignKey(
-        Color, on_delete=models.SET_NULL, default=None, null=True
+        Color,
+        on_delete=models.SET_NULL,
+        default=None,
+        null=True,
     )
     photo = models.ImageField(
-        upload_to=upload_to_folder,
-        null=True,
-        blank=True,
-        verbose_name="Фото"
+        upload_to=upload_to_folder, null=True, blank=True, verbose_name="Фото"
+    )
+
+    is_published = django.db.models.BooleanField(
+        default=True,
+        verbose_name="Кот отображается",
     )
 
     @property
@@ -44,6 +68,7 @@ class Cat(models.Model):
             return sorl.thumbnail.get_thumbnail(
                 self.photo, "800x800", crop="center"
             )
+        return None
 
     @property
     def photo_info(self):
@@ -51,6 +76,7 @@ class Cat(models.Model):
             return sorl.thumbnail.get_thumbnail(
                 self.photo, "800x800", crop="center"
             )
+        return None
 
     def get_absolute_url(self):
         return django.urls.reverse(
