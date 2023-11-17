@@ -52,6 +52,7 @@ class Cat(models.Model):
         on_delete=models.SET_NULL,
         default=None,
         null=True,
+        related_name="colors"
     )
     photo = models.ImageField(
         upload_to=upload_to_folder, null=True, blank=True, verbose_name="Фото"
