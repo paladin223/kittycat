@@ -22,8 +22,8 @@ class Color(models.Model):
 
 
 class Cat(models.Model):
-    def upload_to_folder(self, instance):
-        return f"photos/{instance.slug}/{instance.slug}.png"
+    def upload_to_folder(self, filename):
+        return f"photos/{self.slug}/{self.slug}.png"
 
     name = models.CharField(
         max_length=100,
@@ -52,7 +52,7 @@ class Cat(models.Model):
         on_delete=models.SET_NULL,
         default=None,
         null=True,
-        related_name="colors"
+        related_name="colors",
     )
     photo = models.ImageField(
         upload_to=upload_to_folder, null=True, blank=True, verbose_name="Фото"
