@@ -6,8 +6,8 @@ from django.utils.deconstruct import deconstructible
 
 @deconstructible
 class NameValidator:
-    def __init__(self, *arg):
-        self.words = arg
+    def __init__(self):
+        pass
 
     def __call__(self, value):
         regex = r"^[А-Я][а-я]+$"
@@ -17,3 +17,15 @@ class NameValidator:
             "Кличка должна быть с большой буквы и "
             "иметь только русские буквы"
         )
+
+
+@deconstructible
+class SlugValidator:
+    def __init__(self):
+        pass
+
+    def __call__(self, value):
+        if not value:
+            raise django.core.exceptions.ValidationError(
+                "Slug не может быть пустым."
+            )

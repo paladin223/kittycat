@@ -15,6 +15,11 @@ class Color(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return django.urls.reverse(
+            "cats:color", kwargs={"color_slug": self.slug}
+        )
+
     class Meta:
         verbose_name = "цвет"
         verbose_name_plural = "цвета"
@@ -31,7 +36,11 @@ class Cat(models.Model):
         validators=[cats.validator.NameValidator()],
     )
     slug = models.SlugField(
-        max_length=255, unique=True, db_index=True, verbose_name="URL"
+        max_length=255,
+        unique=True,
+        db_index=True,
+        verbose_name="URL",
+        validators=[cats.validator.SlugValidator()],
     )
     age = models.IntegerField(
         verbose_name="Возраст кота",
@@ -81,7 +90,7 @@ class Cat(models.Model):
 
     def get_absolute_url(self):
         return django.urls.reverse(
-            "cats:one_cat", kwargs={"catslug": self.slug}
+            "cats:one_cat", kwargs={"cat_slug": self.slug}
         )
 
     def __str__(self):

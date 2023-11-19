@@ -3,7 +3,24 @@
 {% load static %}
 
 {% block main %}
-  {% if cats %}
+  
+  <div class="grid-container-all">
+    <div class="selector">
+      <div class="category-selectors">Цвета</div>
+      {% for color in colors %}
+        {% if color.slug != color_selected%}<a href="{{ color.get_absolute_url }}">{% endif %}
+          <div class="category {% if color.slug != color_selected %}hoverable{% endif %}">
+            <div class="category-text">{{ color.name }}</div>
+          </div>
+          {% if color.slug != color_selected%}</a>{% endif %}
+      {% endfor %}
+      {% if color_selected != ""%}<a href="{% url "cats:cats_list" %}">{% endif %}
+        <div class="category {% if color.slug != color_selected %}hoverable{% endif %}">
+          <div class="category-text">Сбросить</div>
+        </div>
+      {% if color_selected != ""%}</a>{% endif %}
+    </div>
+    {% if cats %}
     <div class="grid-container">
       {% for cat in cats %}
       <div class="grid-item">
@@ -23,7 +40,8 @@
       </div>
       {% endfor %}
     </div>
-  {% else %}
-    <p>На данный момент нет ни одного кота.</p>
+    {% else %}
+    <div class="no_cats">На данный момент нет ни одного кота.</div>
   {% endif %}
+  <div>
 {% endblock %}

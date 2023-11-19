@@ -96,7 +96,7 @@ nav a{
 }
 
 /*  */
-/* main container*/
+/* main container */
 /*  */
 
 .notauth{
@@ -110,13 +110,64 @@ main{
     height: 100%;
     flex: 1;
 }
+.grid-container-all {
+  display: grid;
+  grid-template-columns: 300px 6fr;
+  width: 1360px;
+  margin: 0 auto;
+}
 
 .grid-container {
+    grid-column: 2;
+    margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 10px;
-    padding: 15px 100px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    padding: 20px 0 0 20px;
     justify-content: center;
+}
+
+/*  */
+/* selector */
+/*  */
+
+.selector {
+  background-color: #4886af;
+  grid-column: 1;
+  margin-top: 20px;
+  border-radius: 15px;
+  border: #505050 4px solid;
+}
+
+.category-selectors{
+  text-align: center;
+  color: white;
+  font-weight: normal;
+  font-size: 26px;
+}
+
+/* Стили для отдельной категории */
+.category {
+  margin: 10px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 2px solid #ccc;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.hoverable:hover {
+  background-color: #dddddd;
+}
+
+/* Стили для текста внутри категории */
+.category-text {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
 }
 
 /*  */
@@ -306,6 +357,13 @@ main{
 
 .h1_about {
   text-align: center;
+}
+
+.no_cats {
+  text-align: center;
+  color: black;
+  font-size: 40px;
+  font-weight: bold;
 }
 
 /*  */
