@@ -6,20 +6,30 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('cats', '0004_auto_20231116_2332'),
+        ("cats", "0004_auto_20231116_2332"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='cat',
-            name='color',
-            field=models.ForeignKey(default=None, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='colors', to='cats.color'),
+            model_name="cat",
+            name="color",
+            field=models.ForeignKey(
+                default=None,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="colors",
+                to="cats.color",
+            ),
         ),
         migrations.AlterField(
-            model_name='cat',
-            name='slug',
-            field=models.SlugField(max_length=255, unique=True, validators=[cats.validator.SlugValidator()], verbose_name='URL'),
+            model_name="cat",
+            name="slug",
+            field=models.SlugField(
+                max_length=255,
+                unique=True,
+                validators=[cats.validator.SlugValidator()],
+                verbose_name="URL",
+            ),
         ),
     ]
