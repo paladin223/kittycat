@@ -41,9 +41,7 @@ class CatColor(ListView):
         return cats.models.Cat.objects.filter(
             color__slug=self.kwargs["color_slug"],
             is_published=True,
-            ).exclude(
-            photo__exact=""
-            )
+        ).exclude(photo__exact="")
 
 
 class CatDetail(DetailView):
