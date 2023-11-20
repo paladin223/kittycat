@@ -21,12 +21,12 @@ class CatsList(ListView):
         return context
 
     def get_queryset(self):
-        return cats.models.Cat.objects.filter(
-            is_published=True,
-        ).exclude(
-            photo__exact=""
-        ).select_related(
-            "color"
+        return (
+            cats.models.Cat.objects.filter(
+                is_published=True,
+            )
+            .exclude(photo__exact="")
+            .select_related("color")
         )
 
 
@@ -42,13 +42,13 @@ class CatColor(ListView):
         return context
 
     def get_queryset(self):
-        return cats.models.Cat.objects.filter(
-            color__slug=self.kwargs["color_slug"],
-            is_published=True,
-        ).exclude(
-            photo__exact=""
-        ).select_related(
-            "color"
+        return (
+            cats.models.Cat.objects.filter(
+                color__slug=self.kwargs["color_slug"],
+                is_published=True,
+            )
+            .exclude(photo__exact="")
+            .select_related("color")
         )
 
 
