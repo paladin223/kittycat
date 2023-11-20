@@ -4,7 +4,7 @@
   <a class="logo" href="{% url "homepage:home" %}"><img src="{% static 'images/cat-logo.png' %}" width="60px"></a>
     <ul class="nav_center">
         <li><a href="{% url "homepage:home" %}">Главная</a></li>
-        <li><a href="{% url "cats:cats_list" %}">Каталог</a></li>
+        <li><a href="{% url "cats:list" %}">Каталог</a></li>
         {% comment %} {% if user.is_authenticated %} {% endcomment %}
         <li><a href="{% url "cats:add" %}">Добавить кота</li>
         {% comment %} {% endif %} {% endcomment %}

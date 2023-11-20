@@ -90,7 +90,7 @@ class Cat(models.Model):
 
     def get_absolute_url(self):
         return django.urls.reverse(
-            "cats:one_cat", kwargs={"cat_slug": self.slug}
+            "cats:detail", kwargs={"cat_slug": self.slug}
         )
 
     def __str__(self):

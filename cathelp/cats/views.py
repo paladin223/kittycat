@@ -6,19 +6,18 @@ from django.views.generic import ListView
 
 import cats.forms
 import cats.models
+import cats.utils
 
 
-class CatsList(ListView):
+class CatsList(cats.utils.ListCatMixin, ListView):
     model = cats.models.Cat
     template_name = "cats/list.html"
     context_object_name = "cats"
 
-    # dynamic context
-    def get_context_data(self, *, object_list=None, **kwargs):
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["color_selected"] = ""
-        context["colors"] = cats.models.Color.objects.all()
-        return context
+        extras = self.get_user_data()
+        return dict(list(context.items()) + list(extras.items()))
 
     def get_queryset(self):
         return (
@@ -30,16 +29,16 @@ class CatsList(ListView):
         )
 
 
-class CatColor(ListView):
+class CatColor(cats.utils.ListCatMixin, ListView):
     model = cats.models.Cat
     template_name = "cats/list.html"
     context_object_name = "cats"
 
-    def get_context_data(self, *, object_list=None, **kwargs):
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        extras = self.get_user_data()
         context["color_selected"] = self.kwargs["color_slug"]
-        context["colors"] = cats.models.Color.objects.all()
-        return context
+        return dict(list(context.items()) + list(extras.items()))
 
     def get_queryset(self):
         return (
