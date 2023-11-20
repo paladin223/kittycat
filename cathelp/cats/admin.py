@@ -8,7 +8,8 @@ from .models import Color
 class CatAdmin(admin.ModelAdmin):
     def photo_admin(self, obj):
         if obj.photo:
-            return mark_safe(f"<img src='{obj.photo.url}' width=100>")
+            return mark_safe(f"<img src='{obj.photo.url}'"
+                             f"width=100 height=100>")
         return None
 
     photo_admin.short_description = "Фоткарточка"

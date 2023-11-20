@@ -23,7 +23,11 @@ class CatsList(ListView):
     def get_queryset(self):
         return cats.models.Cat.objects.filter(
             is_published=True,
-        ).exclude(photo__exact="")
+        ).exclude(
+            photo__exact=""
+        ).select_related(
+            "color"
+        )
 
 
 class CatColor(ListView):
@@ -41,7 +45,11 @@ class CatColor(ListView):
         return cats.models.Cat.objects.filter(
             color__slug=self.kwargs["color_slug"],
             is_published=True,
-        ).exclude(photo__exact="")
+        ).exclude(
+            photo__exact=""
+        ).select_related(
+            "color"
+        )
 
 
 class CatDetail(DetailView):

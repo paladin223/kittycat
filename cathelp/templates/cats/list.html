@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% load thumbnail %}
+
 {% block main %}
   
   <div class="grid-container-all">
@@ -25,7 +27,11 @@
       {% for cat in cats %}
       <div class="grid-item">
         <div class="item-name">{{ cat.name }}</div>
-        <div class="item-body"><img src="{{ cat.photo_detail.url }}" width="180px"></div>
+        <div class="item-body">
+          {% thumbnail cat.photo "800x800" crop="center" as photo %}
+            <img src="{{ photo.url }}" width="180px">
+          {% endthumbnail %}
+        </div>
         <div class="item-info">
           <div class="info-item"> Возраст{{ cat.age }}</div>
           <div class="info-item">Вес: {{ cat.weight }}</div>
