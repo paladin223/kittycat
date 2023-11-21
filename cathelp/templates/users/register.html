@@ -1,0 +1,30 @@
+{% extends "../index.html" %}
+
+{% block content %}
+
+{% if form.errors %}
+  <div class="error_login">{{ form.non_field_errors }}</div>
+{% endif %}
+
+{% if user.is_authenticated %}
+  <div class="error_login">Авторизированные пользователи не имеют доступа к странице регистрации</div>
+{% else %}
+  <div class="login-container">
+    <h2>Регистрация</h2>
+    <form method="post" action="{% url 'users:register' %}" class="login-form" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% for elem in form %}
+        <div class="login-row"><label class="login-label" for={{ elem.id_for_label}}>{{elem.label}}: </label>{{elem}}</div>
+        {% if elem.errors and elem.value %}
+          <div class="form-error"> {{ elem.errors }}</div>
+        {% endif %}
+      {% endfor %}
+      <button type="submit" class="login_button">Register</button>
+      <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+
+    {# Assumes you setup the password_reset view in your URLconf #}
+    <p><a href="#">Забыли пароль?</a></p>
+  </div>
+{%endif%}
+{% endblock %}

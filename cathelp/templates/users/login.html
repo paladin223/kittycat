@@ -1,0 +1,40 @@
+{% extends "../index.html" %}
+
+{% block content %}
+
+{% if form.errors %}
+  <div class="error_login">{{ form.non_field_errors }}</div>
+{% endif %}
+
+{% if next %}
+  {% if user.is_authenticated %}
+  <div class="error_login">Ваша учетная запись не имеет доступа к этой странице. Чтобы продолжить,
+    пожалуйста, войдите в систему с учетной записью, у которой есть доступ.</div>
+  {% else %}
+  <div class="error_login">Пожалуйста авторизируйтесь для просмотра страницы</div>
+  {% endif %}
+{% endif %}
+
+{% if user.is_authenticated %}
+  <div class="error_login">Аутентифицированная учетная запись не имеет доступа к этой странице. Чтобы продолжить,
+    пожалуйста, выйдите из системы.</div>
+{% else %}
+  <div class="login-container">
+    <h2>Авторизация</h2>
+    <form method="post" action="{% url 'users:login' %}" class="login-form" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% for elem in form %}
+        <div class="login-row"><label class="login-label" for={{ elem.id_for_label}}>{{elem.label}}: </label>{{elem}}</div>
+        {% if elem.errors and elem.value %}
+          <div class="form-error"> {{ elem.errors }}</div>
+        {% endif %}
+      {% endfor %}
+      <button type="submit" class="login_button">Login</button>
+      <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+
+    {# Assumes you setup the password_reset view in your URLconf #}
+    <p><a href="#">Забыли пароль?</a></p>
+  </div>
+{%endif%}
+{% endblock %}

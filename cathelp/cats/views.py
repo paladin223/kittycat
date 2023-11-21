@@ -1,5 +1,6 @@
-# from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views.generic import CreateView
 from django.views.generic import DetailView
 from django.views.generic import ListView
@@ -58,12 +59,10 @@ class CatDetail(DetailView):
     context_object_name = "cat"
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        # context = super().get_context_data(**kwargs)
-        # context["name"] = name
-        # return context
         return super().get_context_data(**kwargs)
 
 
+@method_decorator(login_required, name="dispatch")
 class CatCreate(CreateView):
     form_class = cats.forms.AddCat
     template_name = "cats/add.html"

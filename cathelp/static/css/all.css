@@ -65,11 +65,14 @@ nav a{
   grid-column: 3;
   justify-self: end;
   margin-right: 100px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .nav_right > a{
   background-color: #4c87af;
-  width: 120px;
+  width: 150px;
   height: 40px;
   border-radius: 15px;
   border: #fff 2px solid;
@@ -371,7 +374,7 @@ main{
 /*  */
 
 .login-container {
-  width: 300px;
+  width: 280px;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -383,7 +386,7 @@ main{
 
 .login-container h2 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   color: #333;
 }
 
@@ -392,22 +395,31 @@ main{
   flex-direction: column;
 }
 
-.login-form label {
-  margin-bottom: 5px;
+.login-row{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.login-label {
   color: #555;
 }
 
-.login-form input {
+.login-row input {
   padding: 10px;
-  margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  margin: 4px 0;
+  max-width: 140px;
 }
 
-.login-form input[type="submit"] {
+.login_button[type="submit"] {
   background-color: #4caf50;
   color: #fff;
   cursor: pointer;
+  padding: 15px;
+  margin: 5px 0;
+  border-radius: 10px;
 }
 
 .login-form input[type="submit"]:hover {
@@ -421,7 +433,7 @@ main{
 }
 
 .error_login{
-  background-color: #4c87af;
+  background-color: #614caf;
   height: 30px;
   text-align: center;
   color: #ffffff;

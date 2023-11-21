@@ -1,0 +1,159 @@
+[
+{
+  "model": "cats.color",
+  "pk": 1,
+  "fields": {
+    "name": "рыжий",
+    "slug": "ryzhij"
+  }
+},
+{
+  "model": "cats.color",
+  "pk": 2,
+  "fields": {
+    "name": "белый",
+    "slug": "belyj"
+  }
+},
+{
+  "model": "cats.color",
+  "pk": 3,
+  "fields": {
+    "name": "пестрый",
+    "slug": "pestryj"
+  }
+},
+{
+  "model": "cats.color",
+  "pk": 4,
+  "fields": {
+    "name": "черепаха",
+    "slug": "cherepaha"
+  }
+},
+{
+  "model": "cats.color",
+  "pk": 5,
+  "fields": {
+    "name": "Черый",
+    "slug": "cheryj"
+  }
+},
+{
+  "model": "cats.cat",
+  "pk": 1,
+  "fields": {
+    "name": "Мурей",
+    "slug": "murej",
+    "age": 9,
+    "weight": 6.8,
+    "color": 2,
+    "photo": "photos/murej/murej.png",
+    "is_published": true
+  }
+},
+{
+  "model": "cats.cat",
+  "pk": 2,
+  "fields": {
+    "name": "васька",
+    "slug": "vaska",
+    "age": 10,
+    "weight": 11.0,
+    "color": 4,
+    "photo": "photos/vaska/vaska.png",
+    "is_published": true
+  }
+},
+{
+  "model": "cats.cat",
+  "pk": 3,
+  "fields": {
+    "name": "барсик",
+    "slug": "barsik",
+    "age": 6,
+    "weight": 9.0,
+    "color": 4,
+    "photo": "photos/barsik/barsik.png",
+    "is_published": true
+  }
+},
+{
+  "model": "cats.cat",
+  "pk": 4,
+  "fields": {
+    "name": "кошка",
+    "slug": "koshka",
+    "age": 10,
+    "weight": 5.0,
+    "color": 3,
+    "photo": "photos/koshka/koshka.png",
+    "is_published": true
+  }
+},
+{
+  "model": "cats.cat",
+  "pk": 6,
+  "fields": {
+    "name": "кисюня",
+    "slug": "kisyunya",
+    "age": 2,
+    "weight": 3.0,
+    "color": 3,
+    "photo": "photos/kisyunya/kisyunya.png",
+    "is_published": true
+  }
+},
+{
+  "model": "cats.cat",
+  "pk": 7,
+  "fields": {
+    "name": "мурка",
+    "slug": "murka",
+    "age": 5,
+    "weight": 4.0,
+    "color": 1,
+    "photo": "",
+    "is_published": false
+  }
+},
+{
+  "model": "cats.cat",
+  "pk": 8,
+  "fields": {
+    "name": "Вовка",
+    "slug": "Vovka",
+    "age": 9,
+    "weight": 9.0,
+    "color": 1,
+    "photo": "",
+    "is_published": true
+  }
+},
+{
+  "model": "cats.cat",
+  "pk": 9,
+  "fields": {
+    "name": "Боб",
+    "slug": "bob",
+    "age": 1,
+    "weight": 1.0,
+    "color": 4,
+    "photo": "",
+    "is_published": true
+  }
+},
+{
+  "model": "cats.cat",
+  "pk": 11,
+  "fields": {
+    "name": "Женьшень",
+    "slug": "nikita",
+    "age": 1,
+    "weight": 0.5,
+    "color": 2,
+    "photo": "photos/nikita/nikita.png",
+    "is_published": true
+  }
+}
+]

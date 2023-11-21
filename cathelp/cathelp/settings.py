@@ -37,7 +37,10 @@ INSTALLED_APPS = [
     "about.apps.AboutConfig",
     "cats.apps.CatsConfig",
     "homepage.apps.HomepageConfig",
+    "users.apps.UsersConfig",
 ]
+
+AUTH_USER_MODEL = "users.User"
 
 INTERNAL_IPS = [
     # ...
