@@ -1,8 +1,8 @@
 {% extends "index.html" %}
 
-{% load static %}
+{% load listed_cat %}
 
-{% load thumbnail %}
+{% load static %}
 
 {% block main %}
   <div class="grid-container-all">
@@ -24,29 +24,11 @@
     {% if cats %}
     <div class="grid-container">
       {% for cat in cats %}
-      <div class="grid-item">
-        <div class="item-name">{{ cat.name }}</div>
-        <div class="item-body">
-          {% thumbnail cat.photo "800x800" crop="center" as photo %}
-            <img src="{{ photo.url }}" width="180px">
-          {% endthumbnail %}
-        </div>
-        <div class="item-info">
-          <div class="info-item"> Возраст{{ cat.age }}</div>
-          <div class="info-item">Вес: {{ cat.weight }}</div>
-          {% if cat.color %}
-            <div class="info-item">Цвет: {{ cat.color }}</div>
-          {% endif %}
-        </div>
-        <div class="item_buttons">
-          <a class="LikeCat">Нравится💕</a>
-          <a href="{{ cat.get_absolute_url }}" class="CheckCat">Посмотреть</a>
-        </div>
-      </div>
+      {% show_cat cat %}
       {% endfor %}
-    </div>
     {% else %}
-    <div class="no_cats">На данный момент нет ни одного кота.</div>
-  {% endif %}
+      <div class="no_cats">На данный момент нет ни одного кота.</div>
+    {% endif %}
+    </div>
   <div>
 {% endblock %}
