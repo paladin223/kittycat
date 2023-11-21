@@ -10,6 +10,6 @@ python ./cathelp/manage.py loaddata "data.json"
 
 | задача | code |
 | :---: | :--- |
-| Создание фикстуры | `python -Xutf8 ./cathelp/manage.py dumpdata -e contenttypes -e auth.Permission -e thumbnail.kvstore -e sessions.session --indent 2 -o data.json`|
-| Подгрузка фикстуры | `python ./cathelp/manage.py makemigrations`</br> `python ./cathelp/manage.py migrate --run-syncdb` </br> `python ./cathelp/manage.py loaddata "data.json"`|
-| Очистка media/cache | python manage.py thumbnail cleanup|
+| # Создание фикстуры | `python -Xutf8 ./cathelp/manage.py dumpdata -e contenttypes -e auth.Permission -e thumbnail.kvstore -e sessions.session --indent 2 -o data.json`|
+| # Подгрузка фикстуры | `python ./cathelp/manage.py makemigrations`</br> `python ./cathelp/manage.py migrate --run-syncdb` </br> `python ./cathelp/manage.py loaddata "data.json"`|
+| # Очистка media/cache | `python manage.py thumbnail cleanup` |
