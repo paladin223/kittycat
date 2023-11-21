@@ -2,7 +2,7 @@
 
 [![Python Linting](https://github.com/paladin223/kittycat/actions/workflows/python-package.yml/badge.svg)](https://github.com/paladin223/kittycat/actions/workflows/python-package.yml)
 
-# быстре команды - быстрые решения
+# быстрые команды - быстрые решения
 
 python ./cathelp/manage.py makemigrations
 python ./cathelp/manage.py migrate --run-syncdb
