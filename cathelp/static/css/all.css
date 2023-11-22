@@ -140,6 +140,8 @@ main{
   margin-top: 20px;
   border-radius: 15px;
   border: #505050 4px solid;
+  height: auto; /* Устанавливаем высоту блока в зависимости от его содержимого */
+  max-height: max-content; /* Устанавливаем максимальную высоту блока равной высоте его содержимого */
 }
 
 .category-selectors{
@@ -154,7 +156,7 @@ main{
   margin: 10px;
   background-color: #f0f0f0;
   border-radius: 8px;
-  padding: 10px;
+  padding: 8px;
   margin-bottom: 10px;
   border: 2px solid #ccc;
   cursor: pointer;

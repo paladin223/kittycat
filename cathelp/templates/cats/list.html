@@ -6,29 +6,39 @@
 
 {% block main %}
   <div class="grid-container-all">
-    <div class="selector">
-      <div class="category-selectors">Цвета</div>
-      {% for color in colors %}
-        {% if color.slug != color_selected%}<a href="{{ color.get_absolute_url }}">{% endif %}
+    <div class="selector_wrapper">
+      <div class="selector">
+        <div class="category-selectors">Цвета</div>
+          {% for color in colors %}
+            {% if color.slug != color_selected%}
+              <a href="{{ color.get_absolute_url }}">
+            {% endif %}
+              <div class="category {% if color.slug != color_selected %}hoverable{% endif %}">
+                <div class="category-text">{{ color.name }}</div>
+              </div>
+            {% if color.slug != color_selected%}
+              </a>
+            {% endif %}
+          {% endfor %}
+        {% if color_selected != ""%}
+          <a href="{% url "cats:list" %}">
+        {% endif %}
           <div class="category {% if color.slug != color_selected %}hoverable{% endif %}">
-            <div class="category-text">{{ color.name }}</div>
+            <div class="category-text">Сбросить</div>
           </div>
-          {% if color.slug != color_selected%}</a>{% endif %}
-      {% endfor %}
-      {% if color_selected != ""%}<a href="{% url "cats:list" %}">{% endif %}
-        <div class="category {% if color.slug != color_selected %}hoverable{% endif %}">
-          <div class="category-text">Сбросить</div>
-        </div>
-      {% if color_selected != ""%}</a>{% endif %}
+        {% if color_selected != ""%}
+          </a>
+        {% endif %}
+      </div>
     </div>
     {% if cats %}
-    <div class="grid-container">
-      {% for cat in cats %}
-      {% show_cat cat %}
-      {% endfor %}
+      <div class="grid-container">
+        {% for cat in cats %}
+          {% show_cat cat %}
+        {% endfor %}
     {% else %}
       <div class="no_cats">На данный момент нет ни одного кота.</div>
     {% endif %}
     </div>
-  <div>
+  </div>
 {% endblock %}
