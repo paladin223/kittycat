@@ -1,6 +1,11 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models import Exists
+from django.db.models import OuterRef
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
+from django.views import View
 from django.views.generic import CreateView
 from django.views.generic import DetailView
 from django.views.generic import ListView
@@ -8,6 +13,7 @@ from django.views.generic import ListView
 import cats.forms
 import cats.models
 import cats.utils
+from users.models import User
 
 
 class CatsList(cats.utils.ListCatMixin, ListView):
@@ -20,7 +26,40 @@ class CatsList(cats.utils.ListCatMixin, ListView):
         extras = self.get_user_data()
         return dict(list(context.items()) + list(extras.items()))
 
+    """ if authenticated """
+
     def get_queryset(self):
+        # if self.request.user.is_authenticated:
+        #     return (
+        #         cats.models.Cat.objects.filter(
+        #             is_published=True,
+        #         )
+        #         .exclude(photo__exact="")
+        #         .select_related("color")
+        #         .annotate(
+        #             liked=Case(
+        #                 When(like=self.request.user,
+        #                      then=Value(True)),
+        #                 default=Value(False),
+        #                 output_field=BooleanField(),
+        #             )
+        #         )
+        #     )
+        if self.request.user.is_authenticated:
+            return (
+                cats.models.Cat.objects.filter(
+                    is_published=True,
+                )
+                .exclude(photo__exact="")
+                .select_related("color")
+                .annotate(
+                    liked=Exists(
+                        User.objects.filter(
+                            like=OuterRef("pk"), id=self.request.user.id
+                        )
+                    )
+                )
+            )
         return (
             cats.models.Cat.objects.filter(
                 is_published=True,
@@ -49,6 +88,14 @@ class CatColor(cats.utils.ListCatMixin, ListView):
             )
             .exclude(photo__exact="")
             .select_related("color")
+            # .annotate(
+            #     is_liked=Case(
+            #         When(like=User, then=True),
+            #         default=False,
+            #         output_field=BooleanField(),
+            #     )
+            # )
+            .prefetch_related("like")
         )
 
 
@@ -73,3 +120,29 @@ class CatCreate(CreateView):
 
     def form_invalid(self, form):
         return super().form_invalid(form)
+
+
+class LikeCatView(View):
+    def post(self, request, cat_slug):
+        cat = get_object_or_404(cats.models.Cat, slug=cat_slug)
+        user = request.user
+
+        # Проверяем, аутентифицирован ли пользователь
+        if not user.is_authenticated:
+            return JsonResponse({"auth": "false"})
+
+        # Проверяем, не лайкнул ли уже текущий пользователь этого кота
+        if user in cat.like.all():
+            cat.like.remove(user)
+            return JsonResponse(
+                {
+                    "auth": "true",
+                    "message": "Лайк успешно удален",
+                }
+            )
+
+        # Если пользователь еще не поставил лайк, добавляем его
+        cat.like.add(request.user)
+        return JsonResponse(
+            {"auth": "true", "message": "Лайк успешно добавлен"}
+        )

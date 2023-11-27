@@ -4,6 +4,7 @@ import django.urls
 import sorl.thumbnail
 
 import cats.validator
+from users.models import User
 
 
 class Color(models.Model):
@@ -35,6 +36,7 @@ class Cat(models.Model):
         verbose_name="Имя кота",
         validators=[cats.validator.NameValidator()],
     )
+
     slug = models.SlugField(
         max_length=255,
         unique=True,
@@ -67,6 +69,8 @@ class Cat(models.Model):
         upload_to=upload_to_folder, null=True, blank=True, verbose_name="Фото"
     )
 
+    like = models.ManyToManyField(User, related_name="like")
+
     is_published = django.db.models.BooleanField(
         default=True,
         verbose_name="Кот отображается",
@@ -94,7 +98,7 @@ class Cat(models.Model):
         )
 
     def __str__(self):
-        return self.name
+        return self.slug
 
     class Meta:
         verbose_name = "кот"

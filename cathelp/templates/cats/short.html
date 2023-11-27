@@ -15,7 +15,13 @@
     {% endif %}
   </div>
   <div class="item_buttons">
-    <button  class="LikeCat">💕</button>
+    <button class="LikeCat" data-cat-slug="{{ cat.slug }}">
+      {%if user.is_authenticated and cat.liked %}
+        💔
+      {% else %}
+        😻
+      {% endif %}
+    </button>
     <a href="{{ cat.get_absolute_url }}" class="CheckCat">Посмотреть</a>
   </div>
 </div>
