@@ -61,7 +61,6 @@
               })
               .then(response => response.json())
               .then(data => {
-                console.log('JSON Response:', data);
                 if (data.auth == "true"){
                   const buttonText = this.textContent.trim();
                   this.textContent = (buttonText === '💔') ? '😻' : '💔';
