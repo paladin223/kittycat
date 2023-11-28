@@ -27,8 +27,9 @@ class CatsList(cats.utils.ListCatMixin, ListView):
         return dict(list(context.items()) + list(extras.items()))
 
     def get_queryset(self):
+        queryselect = cats.models.Cat.objects
         if self.request.user.is_authenticated:
-            queryselect = cats.models.Cat.objects.annotate(
+            queryselect = queryselect.annotate(
                 liked=Exists(
                     User.objects.filter(
                         like=OuterRef("id"), id=self.request.user.id
