@@ -26,42 +26,17 @@ class CatsList(cats.utils.ListCatMixin, ListView):
         extras = self.get_user_data()
         return dict(list(context.items()) + list(extras.items()))
 
-    """ if authenticated """
-
     def get_queryset(self):
-        # if self.request.user.is_authenticated:
-        #     return (
-        #         cats.models.Cat.objects.filter(
-        #             is_published=True,
-        #         )
-        #         .exclude(photo__exact="")
-        #         .select_related("color")
-        #         .annotate(
-        #             liked=Case(
-        #                 When(like=self.request.user,
-        #                      then=Value(True)),
-        #                 default=Value(False),
-        #                 output_field=BooleanField(),
-        #             )
-        #         )
-        #     )
         if self.request.user.is_authenticated:
-            return (
-                cats.models.Cat.objects.filter(
-                    is_published=True,
-                )
-                .exclude(photo__exact="")
-                .select_related("color")
-                .annotate(
-                    liked=Exists(
-                        User.objects.filter(
-                            like=OuterRef("pk"), id=self.request.user.id
-                        )
+            queryselect = cats.models.Cat.objects.annotate(
+                liked=Exists(
+                    User.objects.filter(
+                        like=OuterRef("id"), id=self.request.user.id
                     )
                 )
             )
         return (
-            cats.models.Cat.objects.filter(
+            queryselect.filter(
                 is_published=True,
             )
             .exclude(photo__exact="")
@@ -81,21 +56,21 @@ class CatColor(cats.utils.ListCatMixin, ListView):
         return dict(list(context.items()) + list(extras.items()))
 
     def get_queryset(self):
+        if self.request.user.is_authenticated:
+            queryselect = cats.models.Cat.objects.annotate(
+                liked=Exists(
+                    User.objects.filter(
+                        like=OuterRef("id"), id=self.request.user.id
+                    )
+                )
+            )
         return (
-            cats.models.Cat.objects.filter(
+            queryselect.filter(
                 color__slug=self.kwargs["color_slug"],
                 is_published=True,
             )
             .exclude(photo__exact="")
             .select_related("color")
-            # .annotate(
-            #     is_liked=Case(
-            #         When(like=User, then=True),
-            #         default=False,
-            #         output_field=BooleanField(),
-            #     )
-            # )
-            .prefetch_related("like")
         )
 
 
