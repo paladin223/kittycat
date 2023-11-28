@@ -57,8 +57,9 @@ class CatColor(cats.utils.ListCatMixin, ListView):
         return dict(list(context.items()) + list(extras.items()))
 
     def get_queryset(self):
+        queryselect = cats.models.Cat.objects
         if self.request.user.is_authenticated:
-            queryselect = cats.models.Cat.objects.annotate(
+            queryselect = queryselect.annotate(
                 liked=Exists(
                     User.objects.filter(
                         like=OuterRef("id"), id=self.request.user.id
@@ -67,8 +68,8 @@ class CatColor(cats.utils.ListCatMixin, ListView):
             )
         return (
             queryselect.filter(
-                color__slug=self.kwargs["color_slug"],
                 is_published=True,
+                color__slug=self.kwargs["color_slug"],
             )
             .exclude(photo__exact="")
             .select_related("color")
