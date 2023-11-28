@@ -1,4 +1,13 @@
 from django.views.generic import ListView
+from rest_framework import generics
+
+from cats.models import Cat
+from homepage.serializers import HomepageSerializer
+
+
+class HomepageAPIView(generics.ListAPIView):
+    queryset = Cat.objects.all()
+    serializer_class = HomepageSerializer
 
 
 class Homepage(ListView):

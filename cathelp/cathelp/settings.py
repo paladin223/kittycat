@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "django_cleanup",
     "debug_toolbar",
     "sorl.thumbnail",
+    "rest_framework",
     # my apps
     "about.apps.AboutConfig",
     "cats.apps.CatsConfig",
