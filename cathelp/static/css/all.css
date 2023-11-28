@@ -65,11 +65,14 @@ nav a{
   grid-column: 3;
   justify-self: end;
   margin-right: 100px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .nav_right > a{
   background-color: #4c87af;
-  width: 120px;
+  width: 150px;
   height: 40px;
   border-radius: 15px;
   border: #fff 2px solid;
@@ -112,8 +115,8 @@ main{
 }
 .grid-container-all {
   display: grid;
-  grid-template-columns: 300px 6fr;
-  width: 1360px;
+  grid-template-columns: 300px 4fr;
+  width: 1460px;
   margin: 0 auto;
 }
 
@@ -122,8 +125,8 @@ main{
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 40px;
-    padding: 20px 0 0 20px;
+    gap: 20px;
+    padding: 20px 0 0 0;
     justify-content: center;
 }
 
@@ -137,6 +140,8 @@ main{
   margin-top: 20px;
   border-radius: 15px;
   border: #505050 4px solid;
+  height: auto; /* Устанавливаем высоту блока в зависимости от его содержимого */
+  max-height: max-content; /* Устанавливаем максимальную высоту блока равной высоте его содержимого */
 }
 
 .category-selectors{
@@ -151,7 +156,7 @@ main{
   margin: 10px;
   background-color: #f0f0f0;
   border-radius: 8px;
-  padding: 10px;
+  padding: 8px;
   margin-bottom: 10px;
   border: 2px solid #ccc;
   cursor: pointer;
@@ -214,20 +219,23 @@ main{
 }
 
 .item_buttons {
+  width: 200px;
   display: flex;
   align-items: center;
-  align-content: center;
-  gap: 10px;
+  justify-content: space-between;
 }
 
 .LikeCat{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 5px;
-  font-size: 18px;
-  width: 120px;
-  height: 30px;
+  display: inline-block;
+  padding: 8px;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  border-radius: 50%;
+  color: #fff;
   background-color: rgb(177, 5, 177);
 }
 
@@ -371,7 +379,7 @@ main{
 /*  */
 
 .login-container {
-  width: 300px;
+  width: 280px;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -383,7 +391,7 @@ main{
 
 .login-container h2 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   color: #333;
 }
 
@@ -392,22 +400,31 @@ main{
   flex-direction: column;
 }
 
-.login-form label {
-  margin-bottom: 5px;
+.login-row{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.login-label {
   color: #555;
 }
 
-.login-form input {
+.login-row input {
   padding: 10px;
-  margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  margin: 4px 0;
+  max-width: 140px;
 }
 
-.login-form input[type="submit"] {
+.login_button[type="submit"] {
   background-color: #4caf50;
   color: #fff;
   cursor: pointer;
+  padding: 15px;
+  margin: 5px 0;
+  border-radius: 10px;
 }
 
 .login-form input[type="submit"]:hover {
@@ -421,7 +438,7 @@ main{
 }
 
 .error_login{
-  background-color: #4c87af;
+  background-color: #614caf;
   height: 30px;
   text-align: center;
   color: #ffffff;

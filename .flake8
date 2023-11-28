@@ -1,7 +1,7 @@
 [flake8]
 import-order-style = google
 inline-quotes = double
-application-import-names = about,cats,homepage
+application-import-names = about,cats,homepage,users
 exclude =
      venv/,
      */migrations/

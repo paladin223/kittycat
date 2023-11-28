@@ -3,7 +3,6 @@
 {% block main %}
   {% if user.is_authenticated %}
     {% include "includes/navfooter.html" %}
-    {% load catTags %}
     {% comment %} {% show_cats %} {% endcomment %}
     {% comment %} {% show_cats "important includes!!!!"%} {% endcomment %}
     <h1 class="h1_about ">Главная</h1>

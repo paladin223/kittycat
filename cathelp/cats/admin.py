@@ -9,7 +9,7 @@ class CatAdmin(admin.ModelAdmin):
     def photo_admin(self, obj):
         if obj.photo:
             return mark_safe(
-                f"<img src='{obj.photo.url}'" f"width=100 height=100>"
+                f"<img src='{obj.photo_info.url}'" f"width=100 height=100>"
             )
         return None
 

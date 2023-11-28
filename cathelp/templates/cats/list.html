@@ -1,53 +1,78 @@
 {% extends "index.html" %}
-
+{% load listed_cat %}
 {% load static %}
-
-{% load thumbnail %}
-
 {% block main %}
-  
   <div class="grid-container-all">
-    <div class="selector">
-      <div class="category-selectors">Цвета</div>
-      {% for color in colors %}
-        {% if color.slug != color_selected%}<a href="{{ color.get_absolute_url }}">{% endif %}
+    <div class="selector_wrapper">
+      <div class="selector">
+        <div class="category-selectors">Цвета</div>
+          {% for color in colors %}
+            {% if color.slug != color_selected%}
+              <a href="{{ color.get_absolute_url }}">
+            {% endif %}
+              <div class="category {% if color.slug != color_selected %}hoverable{% endif %}">
+                <div class="category-text">{{ color.name }}</div>
+              </div>
+            {% if color.slug != color_selected%}
+              </a>
+            {% endif %}
+          {% endfor %}
+        {% if color_selected != ""%}
+          <a href="{% url "cats:list" %}">
+        {% endif %}
           <div class="category {% if color.slug != color_selected %}hoverable{% endif %}">
-            <div class="category-text">{{ color.name }}</div>
+            <div class="category-text">Сбросить</div>
           </div>
-          {% if color.slug != color_selected%}</a>{% endif %}
-      {% endfor %}
-      {% if color_selected != ""%}<a href="{% url "cats:cats_list" %}">{% endif %}
-        <div class="category {% if color.slug != color_selected %}hoverable{% endif %}">
-          <div class="category-text">Сбросить</div>
-        </div>
-      {% if color_selected != ""%}</a>{% endif %}
+        {% if color_selected != ""%}
+          </a>
+        {% endif %}
+      </div>
     </div>
     {% if cats %}
-    <div class="grid-container">
-      {% for cat in cats %}
-      <div class="grid-item">
-        <div class="item-name">{{ cat.name }}</div>
-        <div class="item-body">
-          {% thumbnail cat.photo "800x800" crop="center" as photo %}
-            <img src="{{ photo.url }}" width="180px">
-          {% endthumbnail %}
-        </div>
-        <div class="item-info">
-          <div class="info-item"> Возраст{{ cat.age }}</div>
-          <div class="info-item">Вес: {{ cat.weight }}</div>
-          {% if cat.color %}
-            <div class="info-item">Цвет: {{ cat.color }}</div>
-          {% endif %}
-        </div>
-        <div class="item_buttons">
-          <a class="LikeCat">Нравится💕</a>
-          <a href="{{ cat.get_absolute_url }}" class="CheckCat">Посмотреть</a>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
+      <div class="grid-container">
+        
+        {% for cat in cats %}
+          {% show_cat cat user %}
+        {% endfor %}
     {% else %}
-    <div class="no_cats">На данный момент нет ни одного кота.</div>
-  {% endif %}
-  <div>
+      <div class="no_cats">На данный момент нет ни одного кота.</div>
+    {% endif %}
+    </div>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const likeButtons = document.querySelectorAll('.LikeCat');
+      
+      likeButtons.forEach(button => {
+          button.addEventListener('click', function () {
+              const catSlug = this.dataset.catSlug;
+              
+              // Получите CSRF-токен из cookie
+              const csrfToken = document.cookie.match(/csrftoken=([^ ;]+)/)[1];
+  
+              // Отправляем POST-запрос на сервер с CSRF-токеном
+              fetch(`like_cat/${catSlug}`, {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json',
+                      'X-CSRFToken': csrfToken,
+                  },
+                  body: JSON.stringify({}),
+              })
+              .then(response => response.json())
+              .then(data => {
+                console.log('JSON Response:', data);
+                if (data.auth == "true"){
+                  const buttonText = this.textContent.trim();
+                  this.textContent = (buttonText === '💔') ? '😻' : '💔';
+                }
+                else{
+                  window.location.href = "{% url "users:login" %}"
+                }
+              })
+              .catch(error => console.error('Fetch error:', error));
+            })
+        });
+      });
+  </script>
 {% endblock %}
