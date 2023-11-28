@@ -1,0 +1,2 @@
+djangorestframework==3.14.0
+tzdata==2023.3
