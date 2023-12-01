@@ -1,5 +1,4 @@
 {% load thumbnail %}
-
 <div class="grid-item">
   <div class="item-name">{{ cat.name }}</div>
   <div class="item-body">
@@ -8,7 +7,7 @@
     {% endthumbnail %}
   </div>
   <div class="item-info">
-    <div class="info-item"> Возраст{{ cat.age }}</div>
+    <div class="info-item"> Возраст: {{ cat.age }}</div>
     <div class="info-item">Вес: {{ cat.weight }}</div>
     {% if cat.color %}
       <div class="info-item">Цвет: {{ cat.color }}</div>

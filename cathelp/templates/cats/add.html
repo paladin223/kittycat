@@ -1,7 +1,5 @@
 {% extends "index.html" %}
-
 {% load static %}
-
 {% block main %}
   <form class="add_cat" action="{% url "cats:add" %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
