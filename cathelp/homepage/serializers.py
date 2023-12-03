@@ -1,8 +1,8 @@
 import io
 
 from rest_framework import serializers
-from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
+from rest_framework.renderers import JSONRenderer
 
 # from cats.models import Cat
 
@@ -39,5 +39,11 @@ def decode():
     print(serializers.validated_data)
 
 
-class HomepageSerializer(serializers.ModelSerializer):
-    pass
+class HomepageSerializer(serializers.Serializer):
+    name = serializers.CharField(max_length=255)
+    slug = serializers.SlugField(max_length=255)
+    age = serializers.IntegerField()
+    weight = serializers.IntegerField()
+    photo = serializers.ImageField()
+    color_id = serializers.IntegerField()
+    is_published = serializers.BooleanField(default=True)

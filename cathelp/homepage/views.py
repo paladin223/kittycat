@@ -1,29 +1,33 @@
-from django.forms import model_to_dict
 from django.views.generic import ListView
+from rest_framework.response import Response
 # from rest_framework import generics
 from rest_framework.views import APIView
-from rest_framework.response import Response
 
 from cats.models import Cat
-from users.models import User
-
-# from homepage.serializers import HomepageSerializer
+from homepage.serializers import HomepageSerializer
 
 
 class HomepageAPIView(APIView):
     # queryset = Cat.objects.all()
     # serializer_class = HomepageSerializer
     def get(self, request):
-        lst = Cat.objects.all().values()
-        return Response({"cats": list(lst)})
+        cats = Cat.objects.all().values()
+        return Response({"get": HomepageSerializer(cats, many=True).data})
 
     def post(self, request):
-        new_user = User.objects.create(
+        serializer = HomepageSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        new_cat = Cat.objects.create(
             name=request.data["name"],
-            email=request.data["email"],
-            password=request.data["password"],
+            slug=request.data["slug"],
+            age=request.data["age"],
+            weight=request.data["weight"],
+            photo=request.data["photo"],
+            color_id=request.data["color_id"],
+            is_published=request.data["is_published"],
         )
-        return Response({"user": model_to_dict(new_user)})
+        return Response({"post": HomepageSerializer(new_cat).data})
 
 
 class Homepage(ListView):
