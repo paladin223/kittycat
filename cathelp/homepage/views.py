@@ -1,10 +1,11 @@
 from django.views.generic import ListView
 from rest_framework.response import Response
-# from rest_framework import generics
 from rest_framework.views import APIView
 
 from cats.models import Cat
 from homepage.serializers import HomepageSerializer
+
+# from rest_framework import generics
 
 
 class HomepageAPIView(APIView):
